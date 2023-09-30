@@ -1,0 +1,87 @@
+<a href="?" class="btn btn-default"><#LANG_BACK#></a>
+<h2><#LANG_WIDGETS#></h2>
+
+<table class="table">
+    <tr>
+        <td>Календарь:</td>
+        <td>
+            [#if CALENDAR_ID="0"#]<b>[#endif#]<a href="?type=<#TYPE#>&view_mode=<#VIEW_MODE#>">Все</a></b>
+            [#begin CALENDARS#]
+            |
+            [#if ID="<#CALENDAR_ID#>"#]<b>[#endif#]
+            <a href="?type=<#TYPE#>&calendar_id=[#ID#]&view_mode=<#VIEW_MODE#>">[#TITLE#]</a>
+            </b>
+            [#end CALENDARS#]
+        </td>
+    </tr>
+    <tr>
+        <td>Тип виджета:</td>
+        <td>
+            [#if TYPE="summary"#]<b>[#endif#]<a href="?view_mode=<#VIEW_MODE#>&calendar_id=<#CALENDAR_ID#>&type=summary">Суммарный (7 дней)</a></b>
+            |
+            [#if TYPE="summary14"#]<b>[#endif#]<a href="?view_mode=<#VIEW_MODE#>&calendar_id=<#CALENDAR_ID#>&type=summary14">Суммарный (14 дней)</a></b>
+            |
+            [#if TYPE="this_week"#]<b>[#endif#]<a href="?view_mode=<#VIEW_MODE#>&calendar_id=<#CALENDAR_ID#>&type=this_week">Эта неделя</a></b>
+            |
+            [#if TYPE="next_week"#]<b>[#endif#]<a href="?view_mode=<#VIEW_MODE#>&calendar_id=<#CALENDAR_ID#>&type=next_week">Следующая неделя</a></b>
+            |
+            [#if TYPE="today"#]<b>[#endif#]<a href="?view_mode=<#VIEW_MODE#>&calendar_id=<#CALENDAR_ID#>&type=today">Сегодня</a></b>
+            |
+            [#if TYPE="tomorrow"#]<b>[#endif#]<a href="?view_mode=<#VIEW_MODE#>&calendar_id=<#CALENDAR_ID#>&type=tomorrow">Завтра</a></b>
+            |
+            [#if TYPE="code"#]<b>[#endif#]<a href="?view_mode=<#VIEW_MODE#>&calendar_id=<#CALENDAR_ID#>&type=code">Код</a></b>
+        </td>
+    </tr>
+    <tr>
+        <td>Код:</td>
+        <td>
+            [#if TYPE="summary"#]<pre>&#091#module name="text_calendar" type="summary" calendar_id="<#CALENDAR_ID#>"#&#093</pre>[#endif TYPE#]
+            [#if TYPE="summary14"#]<pre>&#091#module name="text_calendar" type="summary" days="14" calendar_id="<#CALENDAR_ID#>"#&#093</pre>[#endif TYPE#]
+            [#if TYPE="this_week"#]<pre>&#091#module name="text_calendar" type="week" calendar_id="<#CALENDAR_ID#>"#&#093</pre>[#endif TYPE#]
+            [#if TYPE="next_week"#]<pre>&#091#module name="text_calendar" type="week" next="1" calendar_id="<#CALENDAR_ID#>"#&#093</pre>[#endif TYPE#]
+            [#if TYPE="today"#]<pre>&#091#module name="text_calendar" type="today" calendar_id="<#CALENDAR_ID#>"#&#093</pre>[#endif TYPE#]
+            [#if TYPE="tomorrow"#]<pre>&#091#module name="text_calendar" type="tomorrow" calendar_id="<#CALENDAR_ID#>"#&#093</pre>[#endif TYPE#]
+[#if TYPE="code"#]
+<pre>
+ // код получения списка на сегодня
+ include_once(DIR_MODULES.'text_calendar/text_calendar.class.php';
+ $text_calendar = new text_calendar();
+ $now = time();
+ $events = $text_calendar->getEvents([#CALENDAR_ID#], $now); // идетификатор календаря = [#CALENDAR_ID#], время = сейчас
+ if (count($events)>0) {           // проверяем есть ли события на сегодня
+  for($i=0;$i&lt;count($events);$i++) {
+     $event_details = $events[$i]; // название события
+     say($event_details);          // действие с событием
+  }
+ }
+</pre>
+[#endif TYPE#]
+        </td>
+    </tr>
+    <tr>
+        <td>Просмотр:</td>
+        <td>
+            [#if TYPE="summary"#]
+             [#module name="text_calendar" type="summary" calendar_id="<#CALENDAR_ID#>"#]
+            [#endif#]
+            [#if TYPE="summary14"#]
+             [#module name="text_calendar" type="summary" days="14" calendar_id="<#CALENDAR_ID#>"#]
+            [#endif#]
+            [#if TYPE="this_week"#]
+             [#module name="text_calendar" type="week" calendar_id="<#CALENDAR_ID#>"#]
+            [#endif#]
+            [#if TYPE="next_week"#]
+             [#module name="text_calendar" type="week" next="1" calendar_id="<#CALENDAR_ID#>"#]
+            [#endif#]
+            [#if TYPE="today"#]
+             [#module name="text_calendar" type="today" calendar_id="<#CALENDAR_ID#>"#]
+            [#endif#]
+            [#if TYPE="tomorrow"#]
+             [#module name="text_calendar" type="tomorrow" calendar_id="<#CALENDAR_ID#>"#]
+            [#endif#]
+            [#if TYPE="code"#]
+            [#module name="text_calendar" type="code" calendar_id="<#CALENDAR_ID#>"#]
+            [#endif#]
+        </td>
+    </tr>
+</table>

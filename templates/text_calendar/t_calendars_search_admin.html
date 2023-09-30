@@ -1,0 +1,56 @@
+
+<!-- table t_calendars search -->
+<p>
+<a href="?view_mode=edit_t_calendars" class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> <#LANG_ADD#> календарь</a>
+[#if RESULT#]
+<a href="?view_mode=widgets" class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i> <#LANG_WIDGETS#></a>
+[#endif RESULT#]
+</p>
+<!-- results -->
+[#if RESULT#]
+<!-- paging -->
+<!-- / paging -->
+<!-- search results (list) -->
+<table  align=center class="table">
+<thead>
+<tr>
+ <th>Календарь</th>
+ [#begin DAYS#]
+ <th[#if TODAY="1"#] style='background-color:lightgreen;'[#endif#]>[#TITLE#]</th>
+ [#end DAYS#]
+</tr>
+</thead>
+<tbody>
+[#begin RESULT#]
+<tr>
+ <td
+  >
+  <b>
+   [#TITLE#]
+  </a></b>
+ </td>
+ [#begin DAYS#]
+ <td[#if TODAY="1"#] style='background-color:lightgreen;'[#endif#]>[#BODY#]</td>
+ [#end DAYS#]
+ <td width="1%" nowrap>
+  <div>
+  [#if "<#ACTION#>"=="admin"#]
+   <a href="?view_mode=edit_t_calendars&id=[#ID#]" class="btn btn-default" title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
+    <a href="?view_mode=delete_t_calendars&id=[#ID#]" onClick="return confirm('Are you sure? Please confirm.')" class="btn btn-default" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>
+  [#endif ACTION#]
+  </div>
+ </td>
+</tr>
+[#end RESULT#]
+</tbody>
+</table>
+<!-- / search results (list) -->
+<!-- paging -->
+<!-- / paging -->
+[#else RESULT#]
+<p>
+<font color="red"><#LANG_NO_RECORDS_FOUND#></font>
+</p>
+[#endif RESULT#]
+<!-- / results -->
+

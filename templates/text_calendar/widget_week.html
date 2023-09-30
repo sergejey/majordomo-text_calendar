@@ -1,0 +1,18 @@
+<table class="table">
+    <thead>
+    <tr>
+        [#if SINGLE_CALENDAR!="1"#]<th>&nbsp;</th>[#endif#]
+        [#begin DAYS#]
+        <th[#if TODAY="1"#] style="border: 3px solid"[#endif#]>[#TITLE#]</th>
+        [#end DAYS#]
+    </tr>
+    </thead>
+    [#begin CALENDARS#]
+    <tr>
+        [#if "<#SINGLE_CALENDAR#>"!="1"#]<td><b>[#TITLE#]</b></td>[#endif#]
+        [#begin DAYS#]
+        <td width="12%" style="border:1px solid">[#BODY#]</td>
+        [#end DAYS#]
+    </tr>
+    [#end CALENDARS#]
+</table>

@@ -1,0 +1,21 @@
+
+ <!-- action usual -->
+ <!-- table t_calendars search -->
+ [#if VIEW_MODE="search_t_calendars" || VIEW_MODE=""#]
+  [#inc t_calendars_search_admin.html#]
+ [#endif VIEW_MODE#]
+ <!-- / table t_calendars search -->
+ <!-- table t_calendars edit -->
+ [#if VIEW_MODE="edit_t_calendars"#]
+   [#inc t_calendars_edit.html#]
+ [#endif VIEW_MODE#]
+ <!-- / table t_calendars edit -->
+ <!-- table t_calendars view --> 
+ [#if VIEW_MODE="view_t_calendars"#]
+   [#inc t_calendars_view.html#]
+ [#endif VIEW_MODE#]
+ <!-- / table t_calendars view -->
+
+ [#if VIEW_MODE="widgets"#]
+ [#inc widgets.html#]
+ [#endif VIEW_MODE#]
