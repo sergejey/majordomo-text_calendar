@@ -209,8 +209,8 @@ class text_calendar extends module
                 list($url, $prefix) = explode(';', $line);
                 $external_events = $this->parseExternalCalendar($url, $tm);
                 foreach ($external_events as $item) {
-                    if ($prefix!='') {
-                        $matched[] = trim($prefix).' '.$item;
+                    if ($prefix != '') {
+                        $matched[] = trim($prefix) . ' ' . $item;
                     } else {
                         $matched[] = $item;
                     }
@@ -375,6 +375,11 @@ class text_calendar extends module
         $week_days = array('Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб');
 
         if (!$this->type) $this->type = 'summary';
+
+        if (preg_match('/^(\w+?)(\d+)$/', $this->type, $m)) {
+            $this->type = $m[1];
+            $this->days = (int)$m[2];
+        }
 
         if (!$this->days) {
             $this->days = 7;

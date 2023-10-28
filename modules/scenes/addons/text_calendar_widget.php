@@ -16,6 +16,7 @@ $this->widget_types['chart'] = array(
             '_CONFIG_TYPE'=>'select',
             '_CONFIG_OPTIONS' => array(
                 array('VALUE' => 'summary', 'TITLE'=>'Суммарный (7 дней)'),
+                array('VALUE' => 'summary3', 'TITLE'=>'Суммарный (3 дня)'),
                 array('VALUE' => 'week', 'TITLE'=>'Эта неделя'),
                 array('VALUE' => 'today', 'TITLE'=>'Сегодня'),
                 array('VALUE' => 'tomorrow', 'TITLE'=>'Завтра'),
