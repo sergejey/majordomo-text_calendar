@@ -395,9 +395,9 @@ class text_calendar extends module
 
         if ($this->type == 'week') {
             if (isset($this->next)) {
-                $start = strtotime('Next Monday');
+                $start = strtotime('Next week Monday');
             } else {
-                $start = strtotime('Previous Monday');
+                $start = strtotime('This week Monday');
             }
             $days = array();
             for ($i = 0; $i < 7; $i++) {
