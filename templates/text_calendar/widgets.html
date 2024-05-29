@@ -47,7 +47,7 @@
  include_once(DIR_MODULES.'text_calendar/text_calendar.class.php';
  $text_calendar = new text_calendar();
  $now = time();
- $events = $text_calendar->getEvents([#CALENDAR_ID#], $now); // идетификатор календаря = [#CALENDAR_ID#], время = сейчас
+ $events = $text_calendar->getEvents([#CALENDAR_ID#], $now); // идентификатор календаря = [#CALENDAR_ID#], время = сейчас
  if (count($events)>0) {           // проверяем есть ли события на сегодня
   for($i=0;$i&lt;count($events);$i++) {
      $event_details = $events[$i]; // название события

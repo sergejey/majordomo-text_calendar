@@ -172,8 +172,10 @@ class text_calendar extends module
     {
         if (!$tm) $tm = time();
         $events = array();
-        if ($calendar_id) {
-            $calendars = SQLSelect("SELECT * FROM t_calendars WHERE ID=" . (int)$this->calendar_id);
+        if (is_array($calendar_id)) {
+            $calendars = SQLSelect("SELECT * FROM t_calendars WHERE ID IN (" . implode(',', $calendar_id) . ")");
+        } elseif ($calendar_id) {
+            $calendars = SQLSelect("SELECT * FROM t_calendars WHERE ID=" . (int)$calendar_id);
         } else {
             $calendars = SQLSelect("SELECT * FROM t_calendars ORDER BY TITLE");
         }
