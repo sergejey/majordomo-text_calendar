@@ -192,7 +192,7 @@ class text_calendar extends module
 
     function getEventsForDay($data, $tm = 0)
     {
-
+        startMeasure('getEventsForDay');
         if (!$tm) $tm = time();
 
         $week_days = array('Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб');
@@ -310,12 +310,13 @@ class text_calendar extends module
             }
 
         }
-
+        endMeasure('getEventsForDay');
         return $matched;
     }
 
     function parseExternalCalendar($url, $tm = 0)
     {
+        startMeasure('parseExternalCalendar');
         global $ical_cached;
 
         if (!$tm) $tm = time();
@@ -329,16 +330,19 @@ class text_calendar extends module
 
         if ((time() - $mtime) > 15 * 60) {
             $data = getURL($url);
-            if ($data != '') {
-                SaveFile($filename, $data);
-            }
+            if (file_exists($filename)) unlink($filename);
+            SaveFile($filename, $data);
         }
 
-        if (!file_exists($filename)) return array();
+        if (!file_exists($filename)) {
+            endMeasure('parseExternalCalendar');
+            return array();
+        }
 
         $events = array();
         try {
             if (!isset($ical_cached[$url])) {
+                startMeasure('parsingCalendar');
                 $ical_cached[$url] = new ICal($filename, array(
                     'defaultSpan' => 2,     // Default value
                     'defaultTimeZone' => 'UTC',
@@ -349,17 +353,22 @@ class text_calendar extends module
                     'httpUserAgent' => null,  // Default value
                     'skipRecurrence' => false, // Default value
                 ));
+                endMeasure('parsingCalendar');
             }
+            startMeasure('getEventsFromRange');
             $result = $ical_cached[$url]->eventsFromRange(date('Y-m-d 00:00:00', $tm), date('Y-m-d 23:59:59', $tm));
+            endMeasure('getEventsFromRange');
             if (isset($result[0])) {
                 foreach ($result as $item) {
                     $events[] = $item->summary;
                 }
             }
         } catch (\Exception $e) {
+            endMeasure('parseExternalCalendar');
             return array();
         }
 
+        endMeasure('parseExternalCalendar');
         return $events;
 
     }
